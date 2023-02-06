@@ -1,0 +1,6 @@
+
+
+{
+    "jwtPrivateKey": "web-and-sites-api-privateKey",
+    "db": "web-and-sites-api-database"
+}
