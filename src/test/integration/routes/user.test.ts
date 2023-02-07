@@ -1,5 +1,8 @@
 
 
+import express from "express";
+import { IncomingMessage, Server, ServerResponse } from "http";
+
 // Users should be able to send post requests to /api/users
 // The body should contain following data: username, email, password, newsletter
 // The server should validate the body that is sent
@@ -11,6 +14,14 @@
 // The server should send back the user object to the client
 // The server should send a 200 status message
 
+let server: Server<typeof IncomingMessage, typeof ServerResponse>;
+
 describe("routes - users", () => {
-    
+    beforeEach(() => {
+        server = require("../../../index");
+    });
+
+    afterEach(async () => {
+        await server.close();
+    })
 });
