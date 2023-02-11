@@ -2,6 +2,7 @@
 
 import express from "express";
 import { IncomingMessage, Server, ServerResponse } from "http";
+import request from "supertest";
 
 // Users should be able to send post requests to /api/users
 // The body should contain following data: username, email, password, newsletter
@@ -17,11 +18,41 @@ import { IncomingMessage, Server, ServerResponse } from "http";
 let server: Server<typeof IncomingMessage, typeof ServerResponse>;
 
 describe("routes - users", () => {
+    let username: string;
+    let email: string;
+    let password: string;
+
     beforeEach(() => {
+        username = "John Smith";
+        email = "john.smith@example.com";
+        password = "12345678";
+
         server = require("../../../index");
     });
 
     afterEach(async () => {
         await server.close();
-    })
+    });
+
+    const execute = () => {
+        return request(server)
+            .post("/api/users")
+            .send({username, email, password});
+    };
+
+    it("should return 400 if username is less than 3 characters", async () => {
+        username = "aa";
+
+        const result = await execute();
+
+        expect(result.status).toBe(400);
+    });
+    
+    it("should return 400 if username is less than 3 characters", async () => {
+        username = "aa";
+
+        const result = await execute();
+
+        expect(result.status).toBe(400);
+    });
 });
