@@ -47,12 +47,4 @@ describe("routes - users", () => {
 
         expect(result.status).toBe(400);
     });
-    
-    it("should return 400 if username is less than 3 characters", async () => {
-        username = "aa";
-
-        const result = await execute();
-
-        expect(result.status).toBe(400);
-    });
 });

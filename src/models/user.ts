@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import config from "config";
 import userDto from "../interfaces/userDto";
 import joi from "joi";
+import express from "express";
 
 export const userSchema = new mongoose.Schema({
     username: {
@@ -37,7 +38,7 @@ userSchema.methods.generateJWT = function() {
 
 export const User = mongoose.model("user", userSchema);
 
-export function validate(body: userDto): string | null {
+export function validateUser({ body }: express.Request): string | null {
     const schema = joi.object({
         username: joi.string().min(3).max(50).required(),
         password: joi.string().min(8).max(50).required(),

@@ -1,12 +1,13 @@
 
 
 import express from "express";
-import { User, validate } from "../models/user";
+import { User, validateUser } from "../models/user";
+import validate from "../middleware/validate";
 
 const router = express.Router();
 
-router.post("/", (request, response) => {
-    response.status(400).send("Bad Data");
+router.post("/", (validate(validateUser)), (request, response) => {
+    
 });
 
 export default router;
