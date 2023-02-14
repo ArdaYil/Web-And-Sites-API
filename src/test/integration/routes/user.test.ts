@@ -47,4 +47,44 @@ describe("routes - users", () => {
 
         expect(result.status).toBe(400);
     });
+
+    it("should return 400 if username is more than 51 characters", async () => {
+        username = new Array(52).join("a");
+
+        const result = await execute();
+
+        expect(result.status).toBe(400);
+    });
+
+    it("should return 400 if password is less than 8 characters", async () => {
+        password = "1234567";
+
+        const result = await execute();
+
+        expect(result.status).toBe(400);
+    });
+
+    it("should return 400 if password is more than 51 characters", async () => {
+        password = new Array(52).join("a");
+
+        const result = await execute();
+
+        expect(result.status).toBe(400);
+    });
+
+    it("should return 400 if email is more than 60 characters", async () => {
+        email = new Array(61).join("a") + "@gmail.com";
+
+        const result = await execute();
+
+        expect(result.status).toBe(400);
+    });
+
+    it("should return 400 if email is invalid", async () => {
+        email = "aaaa";
+
+        const result = await execute();
+
+        expect(result.status).toBe(400);
+    });
 });

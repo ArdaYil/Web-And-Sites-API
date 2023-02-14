@@ -25,7 +25,7 @@ export const userSchema = new mongoose.Schema({
     email: {
         type: String,
         minLength: 5,
-        maxLength: 1000,
+        maxLength: 60,
         email: true,
         trim: true,
         required: true
