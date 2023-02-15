@@ -3,7 +3,6 @@
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import config from "config";
-import userDto from "../interfaces/userDto";
 import joi from "joi";
 import express from "express";
 
@@ -28,7 +27,8 @@ export const userSchema = new mongoose.Schema({
         maxLength: 60,
         email: true,
         trim: true,
-        required: true
+        required: true,
+        unique: true
     },
 })
 

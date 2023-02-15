@@ -3,6 +3,7 @@
 import express from "express";
 import { IncomingMessage, Server, ServerResponse } from "http";
 import request from "supertest";
+import { User } from "../../../models/user";
 
 // Users should be able to send post requests to /api/users
 // The body should contain following data: username, email, password, newsletter
@@ -32,6 +33,7 @@ describe("routes - users", () => {
 
     afterEach(async () => {
         await server.close();
+        User.remove();
     });
 
     const execute = () => {
@@ -82,6 +84,20 @@ describe("routes - users", () => {
 
     it("should return 400 if email is invalid", async () => {
         email = "aaaa";
+
+        const result = await execute();
+
+        expect(result.status).toBe(400);
+    });
+
+    it("should return 400 if account already exists", async () => {
+        const newUser = new User({
+            username: "12345",
+            password: "123456789",
+            email: "john.smith@example.com"
+        });
+
+        await newUser.save();
 
         const result = await execute();
 
