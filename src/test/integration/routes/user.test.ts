@@ -4,6 +4,8 @@ import express from "express";
 import { IncomingMessage, Server, ServerResponse } from "http";
 import request from "supertest";
 import { User } from "../../../models/user";
+import jwt from "jsonwebtoken";
+import config from "config";
 
 // Users should be able to send post requests to /api/users
 // The body should contain following data: username, email, password, newsletter
@@ -17,6 +19,11 @@ import { User } from "../../../models/user";
 // The server should send a 200 status message
 
 let server: Server<typeof IncomingMessage, typeof ServerResponse>;
+
+interface responseInterface {
+    body: Object,
+    status: number,
+}
 
 describe("routes - users", () => {
     let username: string;
@@ -33,13 +40,19 @@ describe("routes - users", () => {
 
     afterEach(async () => {
         await server.close();
-        User.remove();
+        await User.remove({});
     });
 
     const execute = () => {
         return request(server)
             .post("/api/users")
             .send({username, email, password});
+    };
+
+    const userValidation = (user: any) => {
+        expect(user).toHaveProperty("username", "John Smith");
+        expect(user).toHaveProperty("email", "john.smith@example.com");
+        expect(user).toHaveProperty("role", "");
     };
 
     it("should return 400 if username is less than 3 characters", async () => {
@@ -102,5 +115,32 @@ describe("routes - users", () => {
         const result = await execute();
 
         expect(result.status).toBe(400);
+    });
+
+    it("should return 200, the user object, and set role and permissionLevel if data is valid and user does not exist", async () => {
+        const response = await execute();
+
+        expect(response.status).toBe(200);
+
+        userValidation(response.body);
+    });
+
+    it("should return a valid jwt in the header", async () => {
+        const response = await execute();
+        const token = response.get("x-auth-token");
+        const valid = jwt.verify(token, config.get("jwtPrivateKey"));
+
+        expect(valid).toBeTruthy();
+    });
+
+    it("should store the user in the databse", async () => {
+        await execute();
+
+        const user: any = await User.findOne({email});
+
+        userValidation(user);
+
+        expect(user.password).toBeTruthy();
+        expect(user.permissionLevel).toBe(1);
     });
 });

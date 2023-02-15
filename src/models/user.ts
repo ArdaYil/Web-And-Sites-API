@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import config from "config";
 import joi from "joi";
 import express from "express";
+import _ from "lodash";
 
 export const userSchema = new mongoose.Schema({
     username: {
@@ -30,10 +31,24 @@ export const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    permissionLevel: {
+        type: Number,
+        min: 1,
+        max: 10,
+        default: 1,
+    },
+    role: {
+        type: String,
+        maxLength: "50",
+        default: "",
+    }
 })
 
 userSchema.methods.generateJWT = function() {
-    return jwt.sign(this, config.get("jwtPrivateKey"));
+    return jwt.sign(
+        _.pick(this, ["username", "role", "email", "_id"]), 
+        config.get("jwtPrivateKey")
+    );
 }
 
 export const User = mongoose.model("user", userSchema);

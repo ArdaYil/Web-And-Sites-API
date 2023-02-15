@@ -12,7 +12,7 @@ router.post("/", (validate(validateUser)), async (request, response) => {
     const {username, email, password} = request.body;
 
     const user = await User.findOne({email: email});
-    console.log(user);
+    
     if (user) return response.status(400).send("User already registered");
 
     const salt = await bcrypt.genSalt(10);
@@ -28,7 +28,7 @@ router.post("/", (validate(validateUser)), async (request, response) => {
 
     const token = newUser.generateJWT();
 
-    response.status(200).header("x-auth-token", token).json(_.pick(user, ["_id", "username", "email"]));
+    response.status(200).header("x-auth-token", token).json(_.pick(newUser, ["_id", "username", "email", "role"]));
 });
 
 export default router;
