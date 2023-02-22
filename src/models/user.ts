@@ -53,14 +53,12 @@ userSchema.methods.generateJWT = function() {
 
 export const User = mongoose.model("user", userSchema);
 
-export function validateUser({ body }: express.Request): string | null {
+export function validateUser({ body }: express.Request) : joi.ValidationResult | undefined {
     const schema = joi.object({
         username: joi.string().min(3).max(50).required(),
         password: joi.string().min(8).max(50).required(),
         email: joi.string().email().max(60).required()
     })
 
-    const {error} = schema.validate(body);
-
-    return (error) ? error.details[0].message : null;
+    return schema.validate(body);
 }
