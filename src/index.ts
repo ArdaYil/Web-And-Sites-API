@@ -13,7 +13,7 @@ middleware(app);
 db();
 route(app);
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 80;
 const server = app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 module.exports = server;
