@@ -12,9 +12,9 @@ router.post("/", [validate(validateAuthBody)], async (request : Request, respons
     const {email, password} = request.body;
     const user: any = await User.findOne({email});
 
-    if (!user) return response.status(404).send("User does not exist");
+    if (!user) return response.status(400).send("User does not exist");
     const result = await bcrypt.compare(password, user.password);
-    if (!result) return response.status(403).send("Wrong password");
+    if (!result) return response.status(400).send("Wrong password");
 
     const jwt = user.generateJWT();
 
