@@ -1,7 +1,7 @@
 
 
-import user from "../routes/user";
-import auth from "../routes/auth";
+import user from "../routes/user.js";
+import auth from "../routes/auth.js";
 import express from "express";
 
 export default function(app: express.Application) {

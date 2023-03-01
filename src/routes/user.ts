@@ -1,8 +1,8 @@
 
 
 import express from "express";
-import { User, validateUser } from "../models/user";
-import validate from "../middleware/validate";
+import { User, validateUser } from "../models/user.js";
+import validate from "../middleware/validate.js";
 import _ from "lodash";
 import bcrypt from "bcrypt";
 

@@ -3,8 +3,8 @@
 import express, {Request, Response} from "express";
 const joi = require("joi");
 const bcrypt = require("bcrypt");
-import {User} from "../models/user";
-import validate from "../middleware/validate";
+import {User} from "../models/user.js";
+import validate from "../middleware/validate.js";
 
 const router = express.Router();
 

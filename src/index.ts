@@ -2,8 +2,8 @@
 
 import express from "express";
 import db from "./startup/db.js";
-import middleware from "./startup/middleware";
-import route from "./startup/route";
+import middleware from "./startup/middleware.js";
+import route from "./startup/route.js";
 
 const app = express();
 

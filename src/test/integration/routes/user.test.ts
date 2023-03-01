@@ -2,7 +2,7 @@
 
 import { IncomingMessage, Server, ServerResponse } from "http";
 import request from "supertest";
-import { User } from "../../../models/user";
+import { User } from "../../../models/user.js";
 import jwt from "jsonwebtoken";
 import config from "config";
 
