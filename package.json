@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage --verbose --forceExit --maxWorkers=1",
-    "start": "node index.js"
+    "start": "node dist/index.js"
   },
   "engines": {
     "node": "18.12.1"
