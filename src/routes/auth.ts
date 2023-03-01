@@ -1,8 +1,8 @@
 
 
 import express, {Request, Response} from "express";
-const joi = require("joi");
-const bcrypt = require("bcrypt");
+import joi from "joi";
+import bcrypt from "bcrypt";
 import {User} from "../models/user.js";
 import validate from "../middleware/validate.js";
 

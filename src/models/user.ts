@@ -1,9 +1,9 @@
 
 
 import jwt from "jsonwebtoken";
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 import config from "config";
-const joi = require("joi");
+import joi from "joi";
 import express from "express";
 import _ from "lodash";
 
