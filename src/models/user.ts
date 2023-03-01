@@ -1,9 +1,9 @@
 
 
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 import config from "config";
-import joi from "joi";
+const joi = require("joi");
 import express from "express";
 import _ from "lodash";
 
@@ -53,7 +53,7 @@ userSchema.methods.generateJWT = function() {
 
 export const User = mongoose.model("user", userSchema);
 
-export function validateUser({ body }: express.Request) : joi.ValidationResult | undefined {
+export function validateUser({ body }: express.Request) : any {
     const schema = joi.object({
         username: joi.string().min(3).max(50).required(),
         password: joi.string().min(8).max(50).required(),
