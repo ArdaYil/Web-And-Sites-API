@@ -1,8 +1,8 @@
 
 
 import express, {Request, Response} from "express";
-import joi from "joi";
-import bcrypt from "bcrypt";
+const joi = require("joi");
+const bcrypt = require("bcrypt");
 import {User} from "../models/user";
 import validate from "../middleware/validate";
 
@@ -21,7 +21,7 @@ router.post("/", [validate(validateAuthBody)], async (request : Request, respons
     response.json(jwt);
 });
 
-function validateAuthBody({ body }: Request): joi.ValidationResult | undefined {
+function validateAuthBody({ body }: Request): any {
     const schema = joi.object({
         password: joi.string().min(8).max(50).required(),
         email: joi.string().email().max(60).required()

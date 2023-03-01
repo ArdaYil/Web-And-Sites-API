@@ -1,6 +1,6 @@
 
 
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 import config from "config";
 
 export default function() {
