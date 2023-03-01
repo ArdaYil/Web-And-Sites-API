@@ -11,6 +11,7 @@
     "node": "18.12.1"
   },
   "keywords": [],
+  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
