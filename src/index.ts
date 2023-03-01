@@ -1,7 +1,7 @@
 
 
 import express from "express";
-import db from "./startup/db";
+import db from "./startup/db.js";
 import middleware from "./startup/middleware";
 import route from "./startup/route";
 
